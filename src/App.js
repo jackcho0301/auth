@@ -37,7 +37,8 @@ const login = async (input) => {
   .then(function (response) {
     console.log(response);
 
-    getRanking();
+    // getRanking();
+    updatePortfolio();
 
   })
   .catch(function (error) {
@@ -59,7 +60,23 @@ const getRanking = async () => {
   });
 }
 
-getRanking();
+const updatePortfolio = async () => {
+
+  await axios.patch('http://localhost:3000/api/v1/portfolios/1', {
+    "stockName" : "AAPL",
+    "numOfUnits" : 100,
+     "initCost" : 100
+}, config
+  )
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
+// getRanking();
 
 function App() {
   return (
