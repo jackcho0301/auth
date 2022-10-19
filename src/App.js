@@ -4,6 +4,15 @@ import './App.css';
 
 import Form from './components/Form';
 
+const config = {
+  headers: {
+    "Content-Type": "application/json"
+    },
+    withCredentials: true
+  }
+
+
+
 // const register = async (input) => {
 
 
@@ -23,7 +32,24 @@ const login = async (input) => {
 
 
   await axios.post('http://localhost:3000/api/v1/auth/login', 
-    input
+    input, config
+  )
+  .then(function (response) {
+    console.log(response);
+
+    getRanking();
+
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
+
+const getRanking = async () => {
+
+
+  await axios.get('http://localhost:3000/api/v1/portfolios',config
   )
   .then(function (response) {
     console.log(response);
@@ -33,21 +59,7 @@ const login = async (input) => {
   });
 }
 
-
-// const getRanking = async () => {
-
-
-//   await axios.get('http://localhost:3000/api/v1/portfolios',
-//   )
-//   .then(function (response) {
-//     console.log(response);
-//   })
-//   .catch(function (error) {
-//     console.log(error);
-//   });
-// }
-
-// getRanking();
+getRanking();
 
 function App() {
   return (
