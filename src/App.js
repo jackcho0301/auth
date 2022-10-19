@@ -13,33 +13,49 @@ const config = {
 
 
 
-// const register = async (input) => {
-
-
-//       await axios.post('http://localhost:3000/api/v1/auth/register', 
-//         input
-//       )
-//       .then(function (response) {
-//         console.log(response);
-//       })
-//       .catch(function (error) {
-//         console.log(error);
-//       });
-// }
+const register = async (input) => {
+      await axios.post('http://localhost:3000/api/v1/auth/register', 
+        {"username": "newuser0", "password": "000000"}
+      )
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+}
 
 
 const login = async (input) => {
 
 
   await axios.post('http://localhost:3000/api/v1/auth/login', 
-    input, config
+    {username: "user0", password: "000000"}, config
   )
   .then(function (response) {
     console.log(response);
 
-    // getRanking();
-    updatePortfolio();
 
+    register();
+
+    // getRanking();
+    // updatePortfolio();
+    // getPortfolio();
+    // sellPortfolioItem();
+    // createPortfolio();
+    // getPortfolio();
+    // logout();
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
+
+const logout = async () => {
+  await axios.post('http://localhost:3000/api/v1/auth/logout', {}, config)
+  .then(function (response) {
+    console.log(response);
   })
   .catch(function (error) {
     console.log(error);
@@ -48,8 +64,6 @@ const login = async (input) => {
 
 
 const getRanking = async () => {
-
-
   await axios.get('http://localhost:3000/api/v1/portfolios',config
   )
   .then(function (response) {
@@ -60,8 +74,22 @@ const getRanking = async () => {
   });
 }
 
-const updatePortfolio = async () => {
 
+const getPortfolio = async () => {
+
+  await axios.get('http://localhost:3000/api/v1/portfolios/1', config
+  )
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
+
+
+const updatePortfolio = async () => {
   await axios.patch('http://localhost:3000/api/v1/portfolios/1', {
     "stockName" : "AAPL",
     "numOfUnits" : 100,
@@ -75,6 +103,42 @@ const updatePortfolio = async () => {
     console.log(error);
   });
 }
+
+
+const sellPortfolioItem = async () => {
+  await axios.delete('http://localhost:3000/api/v1/portfolios/1', {
+    "stockName" : "AAPL"
+}, config
+  )
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
+const createPortfolio = async () => {
+  await axios.post('http://localhost:3000/api/v1/portfolios/', {
+    "portId": 1,
+    "stockName": "TWTR",
+    "numOfUnits": 75,
+    "initCost": 60.00
+ }, config
+  )
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
+
+
+
+
+
 
 // getRanking();
 
